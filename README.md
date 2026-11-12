@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CARELYNTA CV CHECK – verificare orientativă și gratuită a CV-ului.">
-<title>CARELYNTA CV CHECK</title>
+<title><h1>CARELYNTA CV CHECK</h1></title>
 <style>
 :root{--teal:#218a79;--deep:#173f3a;--ink:#263532;--muted:#687874;--line:#dce7e3;--bg:#f4f8f6;--white:#fff;--soft:#eaf4f1}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Arial,Helvetica,sans-serif}
@@ -47,7 +47,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
   <div class="meter"><span id="bar"></span></div>
   <div class="grid" id="checks"></div>
   <div id="keywords" class="hidden" style="margin-top:22px"><h2>Cuvinte-cheie din anunț</h2><p class="hint">Comparație orientativă, nu evaluare completă ATS.</p><div id="keyword-list"></div></div>
-  <div class="cta"><h2>Vrei să mergi mai departe?</h2><p>O verificare automată poate identifica anumite aspecte de structură. O evaluare individuală poate analiza relevanța experienței, formularea realizărilor și adaptarea CV-ului la obiectivul tău profesional.</p><a href="mailto:contact@carelynta.ro?subject=Solicitare%20evaluare%20CV">Solicită informații despre evaluarea CV-ului →</a></div>
+  <div class="cta"><h2>Vrei să mergi mai departe?</h2><p>O verificare automată poate identifica anumite aspecte de structură. O evaluare individuală poate analiza relevanța experienței, formularea realizărilor și adaptarea CV-ului la obiectivul tău profesional.</p><a href="mailto:mariana.pastean@gmail.com?subject=Solicitare%20evaluare%20CV">Solicită informații despre evaluarea CV-ului →</a></div>
   <p class="privacy">Acest raport este orientativ. Nu garantează trecerea de filtre ATS, obținerea unui interviu sau angajarea.</p>
 </section>
 <footer>© CARELYNTA · Instrument gratuit de orientare profesională</footer>

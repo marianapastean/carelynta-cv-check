@@ -516,7 +516,7 @@ footer strong {
 
   <img
     class="logo"
-    src="Logo-Carelynta.png"
+    src="Logo-carelynta.png"
     alt="Logo CARELYNTA"
     onerror="this.style.display='none'"
   >

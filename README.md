@@ -30,10 +30,14 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
 <header>
   <div class="brand">CARE<span>LYNTA</span></div>
   <h1>CARELYNTA CV CHECK</h1>
-  <img src="logo-carelynta.png" alt="Logo CARELYNTA">
-  <p class="lead">CV-ul tău merită să fie remarcat! CARELYNTA CV CHECK este un instrument gratuit care te ajută să verifici structura și conținutul CV-ului, să identifici punctele forte și să descoperi ce poți îmbunătăți pentru a-ți prezenta experiența profesională mai clar și mai convingător.
+  <img src="Logo Carelynta.png" alt="Logo CARELYNTA">
+  <p class="lead">CV-ul tău merită să fie remarcat!
 
-Verifică. Îmbunătățește. Evoluează.
+CARELYNTA CV CHECK este un instrument gratuit care te ajută să verifici structura și conținutul CV-ului tău.
+
+Primești un scor orientativ, identifici punctele forte și descoperi ce poți îmbunătăți pentru a-ți prezenta experiența profesională mai clar și mai convingător.
+
+Primul pas spre următoarea oportunitate profesională începe aici.
     <br> Primul pas către un CV clar, coerent și relevant. Verifică gratuit câteva elemente esențiale și află ce poți îmbunătăți.</p>
 </header>
 <section class="panel">

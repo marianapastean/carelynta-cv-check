@@ -4,26 +4,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#173f3a">
+<meta name="theme-color" content="#0a3258">
 <meta name="description" content="CARELYNTA CV CHECK – verifică gratuit structura CV-ului și descoperă ce poți îmbunătăți.">
 <title>CARELYNTA CV CHECK | Verificare gratuită CV</title>
 
 <style>
 :root {
-  --primary: #218a79;
-  --primary-dark: #176f62;
-  --dark: #173f3a;
-  --deep: #102f2c;
+  --primary: #0a3258;
+  --primary-dark: #062441;
+  --dark: #0a3258;
+  --deep: #061d35;
   --gold: #c6a66a;
-  --text: #263532;
-  --muted: #687874;
-  --background: #f3f7f5;
+  --text: #263442;
+  --muted: #687887;
+  --background: #f3f6f9;
   --white: #ffffff;
-  --soft: #eaf4f1;
-  --border: #dce7e3;
+  --soft: #e9f0f7;
+  --border: #d8e2ec;
   --success: #247653;
   --warning: #98691d;
-  --shadow: 0 15px 40px rgba(23,63,58,.08);
+  --shadow: 0 15px 40px rgba(10,50,88,.08);
 }
 
 * {
@@ -183,7 +183,7 @@ textarea {
   width: 100%;
   min-height: 220px;
   padding: 16px;
-  border: 1px solid #cbd9d4;
+  border: 1px solid #cbd6e0;
   border-radius: 13px;
   outline: none;
   background: white;
@@ -195,16 +195,111 @@ textarea {
 }
 
 textarea::placeholder {
-  color: #9aa8a3;
+  color: #9aa8b5;
 }
 
 textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(33,138,121,.12);
+  box-shadow: 0 0 0 4px rgba(10,50,88,.12);
 }
 
 #job {
   min-height: 135px;
+}
+
+/* FILE UPLOAD */
+
+.upload-section {
+  margin: 20px 0 25px;
+}
+
+.upload-title {
+  display: block;
+  color: var(--dark);
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 28px 20px;
+  border: 2px dashed var(--primary);
+  border-radius: 16px;
+  background: var(--soft);
+  cursor: pointer;
+  text-align: center;
+  transition: background .2s ease, border-color .2s ease;
+  margin: 0;
+}
+
+.upload-box:hover,
+.upload-box:focus-within {
+  background: #dce8f3;
+  border-color: var(--primary-dark);
+}
+
+.upload-icon {
+  font-size: 34px;
+}
+
+.upload-box strong {
+  color: var(--dark);
+  font-size: 16px;
+}
+
+.upload-box span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.upload-box .upload-button {
+  background: var(--primary);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.upload-box:hover .upload-button {
+  background: var(--primary-dark);
+}
+
+.file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.file-input:focus-visible + .upload-box {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.file-status {
+  margin: 12px 0 0;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.upload-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 7px;
 }
 
 /* BUTTONS */
@@ -239,7 +334,7 @@ button.secondary {
 }
 
 button.secondary:hover {
-  background: #dcece6;
+  background: #dce8f3;
 }
 
 button:focus-visible {
@@ -283,7 +378,7 @@ button:focus-visible {
 
 .meter {
   height: 11px;
-  background: #e7eeeb;
+  background: #e7edf3;
   border-radius: 30px;
   overflow: hidden;
   margin: 15px 0 20px;
@@ -293,7 +388,7 @@ button:focus-visible {
   display: block;
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, var(--primary), #8bb9a9);
+  background: linear-gradient(90deg, var(--primary), #7898b6);
   border-radius: 30px;
   transition: width .4s;
 }
@@ -305,7 +400,7 @@ button:focus-visible {
 }
 
 .item {
-  background: #f8faf9;
+  background: #f8fafc;
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 16px;
@@ -377,7 +472,7 @@ button:focus-visible {
 }
 
 .cta p {
-  color: #d8e7e3;
+  color: #d8e3ed;
   font-size: 14px;
 }
 
@@ -554,11 +649,44 @@ footer strong {
   <h2>Verifică CV-ul tău</h2>
 
   <p class="hint">
-    Copiază textul din CV în primul câmp. Opțional, adaugă
+    Încarcă documentul CV în format PDF sau Word ori copiază
+    manual textul în câmpul de mai jos. Opțional, adaugă
     anunțul de angajare pentru o comparație orientativă.
   </p>
 
-  <label for="cv">Textul CV-ului</label>
+  <!-- ÎNCĂRCARE DOCUMENT -->
+
+  <div class="upload-section">
+
+    <span class="upload-title">Încarcă CV-ul tău</span>
+
+    <input
+      type="file"
+      id="cvFile"
+      class="file-input"
+      accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    >
+
+    <label class="upload-box" for="cvFile">
+      <span class="upload-icon">📄</span>
+      <strong>Alege documentul CV</strong>
+      <span>Formate acceptate: PDF și Word (.docx)</span>
+      <span class="upload-button">Selectează fișierul</span>
+    </label>
+
+    <p id="fileStatus" class="file-status" aria-live="polite">
+      Nu ai selectat încă un document.
+    </p>
+
+    <p class="upload-note">
+      Documentul este procesat local în browser. Nu este trimis
+      către un server CARELYNTA. Documentele PDF scanate ca imagini
+      necesită recunoaștere optică a textului (OCR).
+    </p>
+
+  </div>
+
+  <label for="cv">Sau copiază manual textul CV-ului</label>
 
   <textarea
     id="cv"
@@ -576,6 +704,7 @@ footer strong {
   ></textarea>
 
   <div class="actions">
+
     <button id="check" type="button">
       Verifică CV-ul gratuit
     </button>
@@ -583,12 +712,13 @@ footer strong {
     <button id="clear" class="secondary" type="button">
       Șterge textul
     </button>
+
   </div>
 
   <p class="privacy">
-    Confidențialitate: analiza se efectuează local, în browser.
-    Textul introdus nu este trimis către CARELYNTA și nu este
-    salvat de acest instrument.
+    Confidențialitate: analiza și extragerea textului se efectuează
+    local, în browser. Documentul și textul introdus nu sunt trimise
+    către CARELYNTA și nu sunt salvate de acest instrument.
   </p>
 
 </section>
@@ -598,6 +728,7 @@ footer strong {
 <section class="panel hidden" id="results" aria-live="polite">
 
   <div class="results-header">
+
     <div>
       <p class="kicker">Rezultatul verificării</p>
       <h2>Raportul tău CARELYNTA</h2>
@@ -605,6 +736,7 @@ footer strong {
     </div>
 
     <div class="score" id="score">0<small> / 100</small></div>
+
   </div>
 
   <div class="meter">
@@ -616,6 +748,7 @@ footer strong {
   <div class="grid" id="checks"></div>
 
   <div class="keyword-section hidden" id="keywords">
+
     <h3>Potrivirea cu anunțul de angajare</h3>
 
     <p>
@@ -624,11 +757,12 @@ footer strong {
     </p>
 
     <div id="keyword-list"></div>
+
   </div>
 
   <div class="cta">
 
-    <p class="kicker" style="color:#b8d9ce">Următorul pas</p>
+    <p class="kicker" style="color:#c6d8e8">Următorul pas</p>
 
     <h2>Vrei o evaluare individuală a CV-ului?</h2>
 
@@ -659,14 +793,14 @@ footer strong {
 
 </section>
 
-<!-- CUM FUNCTIONEAZA -->
+<!-- CUM FUNCȚIONEAZĂ -->
 
 <section class="how-grid">
 
   <article class="how-card">
     <span class="number">1</span>
-    <strong>Introdu textul CV-ului</strong>
-    <p>Copiază conținutul CV-ului în câmpul dedicat.</p>
+    <strong>Încarcă sau introdu CV-ul</strong>
+    <p>Încarcă un PDF sau DOCX ori copiază manual textul CV-ului.</p>
   </article>
 
   <article class="how-card">
@@ -691,10 +825,24 @@ footer strong {
 
 </main>
 
+<!-- BIBLIOTECI PENTRU PDF ȘI DOCX -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+
 <script>
 "use strict";
 
 const $ = id => document.getElementById(id);
+
+/* CONFIGURARE PDF.JS */
+
+if (window.pdfjsLib) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+}
+
+/* CRITERII VERIFICARE CV */
 
 const checks = [
 
@@ -758,6 +906,8 @@ const checks = [
 
 ];
 
+/* EXTRAGERE TERMENI */
+
 const stopWords = new Set(
   "pentru care este sunt acest aceasta acestea unui unei din prin despre către catre după dupa între intre sau și si cu la de în in un o a al ai ale the and with from your you our role job team".split(" ")
 );
@@ -768,6 +918,8 @@ function extractWords(value) {
   ).filter(word => !stopWords.has(word));
 }
 
+/* PROTECȚIE TEXT HTML */
+
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, character => ({
     "&": "&amp;",
@@ -777,6 +929,140 @@ function escapeHTML(value) {
     "'": "&#39;"
   })[character]);
 }
+
+/* EXTRAGERE PDF */
+
+async function extractPDF(file) {
+
+  if (!window.pdfjsLib) {
+    throw new Error(
+      "Biblioteca PDF nu s-a încărcat. Verifică conexiunea la internet și încearcă din nou."
+    );
+  }
+
+  const buffer = await file.arrayBuffer();
+
+  const pdf = await pdfjsLib.getDocument({
+    data: new Uint8Array(buffer)
+  }).promise;
+
+  const pages = [];
+
+  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+
+    const page = await pdf.getPage(pageNumber);
+    const content = await page.getTextContent();
+
+    const pageText = content.items
+      .map(item => item.str)
+      .join(" ");
+
+    pages.push(pageText);
+  }
+
+  return pages.join("\n\n").trim();
+}
+
+/* EXTRAGERE WORD DOCX */
+
+async function extractDOCX(file) {
+
+  if (!window.mammoth) {
+    throw new Error(
+      "Biblioteca Word nu s-a încărcat. Verifică conexiunea la internet și încearcă din nou."
+    );
+  }
+
+  const buffer = await file.arrayBuffer();
+
+  const result = await mammoth.extractRawText({
+    arrayBuffer: buffer
+  });
+
+  return result.value.trim();
+}
+
+/* ÎNCĂRCARE FIȘIER */
+
+const cvFileInput = $("cvFile");
+const fileStatus = $("fileStatus");
+const cvTextarea = $("cv");
+
+cvFileInput.addEventListener("change", async function () {
+
+  const file = this.files[0];
+
+  if (!file) return;
+
+  const extension = file.name.split(".").pop().toLowerCase();
+
+  const allowedExtensions = ["pdf", "docx"];
+
+  if (!allowedExtensions.includes(extension)) {
+
+    fileStatus.textContent =
+      "Format neacceptat. Te rog să încarci un fișier PDF sau DOCX.";
+
+    this.value = "";
+    return;
+  }
+
+  const maxSize = 10 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+
+    fileStatus.textContent =
+      "Fișierul este prea mare. Dimensiunea maximă acceptată este de 10 MB.";
+
+    this.value = "";
+    return;
+  }
+
+  fileStatus.textContent =
+    "Documentul se procesează. Te rugăm să aștepți...";
+
+  try {
+
+    let extractedText = "";
+
+    if (extension === "pdf") {
+      extractedText = await extractPDF(file);
+    }
+
+    if (extension === "docx") {
+      extractedText = await extractDOCX(file);
+    }
+
+    if (!extractedText) {
+      throw new Error(
+        "Nu am putut extrage text din document. Dacă PDF-ul este scanat ca imagine, este necesară funcția OCR."
+      );
+    }
+
+    cvTextarea.value = extractedText;
+
+    cvTextarea.dispatchEvent(
+      new Event("input", { bubbles: true })
+    );
+
+    cvTextarea.focus();
+
+    fileStatus.textContent =
+      "Document încărcat cu succes: " + file.name +
+      ". Textul CV-ului a fost introdus automat mai jos.";
+
+  } catch (error) {
+
+    fileStatus.textContent =
+      error.message || "A apărut o eroare la citirea documentului.";
+
+    console.error("Eroare încărcare CV:", error);
+
+  }
+
+});
+
+/* COMPARAȚIE CU ANUNȚUL */
 
 function renderKeywords(cvText, jobText) {
 
@@ -792,20 +1078,25 @@ function renderKeywords(cvText, jobText) {
   `;
 
   if (matched.length) {
+
     html += `
-      <div><strong>Termeni identificați:</strong><br>
+      <div>
+      <strong>Termeni identificați:</strong><br>
       ${matched.map(word => `<span class="tag">${escapeHTML(word)}</span>`).join("")}
       </div>
     `;
+
   }
 
   if (missing.length) {
+
     html += `
       <div style="margin-top:12px">
       <strong>Termeni care nu apar în CV:</strong><br>
       ${missing.map(word => `<span class="tag">${escapeHTML(word)}</span>`).join("")}
       </div>
     `;
+
   }
 
   if (!jobWords.length) {
@@ -814,9 +1105,10 @@ function renderKeywords(cvText, jobText) {
 
   $("keyword-list").innerHTML = html;
   $("keywords").classList.remove("hidden");
+
 }
 
-// VERIFICARE CV
+/* VERIFICARE CV */
 
 $("check").addEventListener("click", () => {
 
@@ -824,8 +1116,11 @@ $("check").addEventListener("click", () => {
   const jobText = $("job").value.trim();
 
   if (cvText.length < 40) {
+
     alert("Te rog să introduci mai mult text din CV pentru o verificare utilă.");
+
     $("cv").focus();
+
     return;
   }
 
@@ -839,20 +1134,27 @@ $("check").addEventListener("click", () => {
   );
 
   $("score").innerHTML = `${score}<small> / 100</small>`;
+
   $("bar").style.width = score + "%";
 
   let description =
     "Folosește recomandările de mai jos pentru a-ți îmbunătăți CV-ul.";
 
   if (score >= 88) {
+
     description =
       "Structura verificată include majoritatea elementelor urmărite de instrument.";
+
   } else if (score >= 63) {
+
     description =
       "Ai câteva elemente importante prezente. Mai există aspecte de completat.";
+
   } else {
+
     description =
       "Sunt mai multe elemente de structură pe care merită să le verifici.";
+
   }
 
   $("score-description").textContent = description;
@@ -868,9 +1170,13 @@ $("check").addEventListener("click", () => {
   `).join("");
 
   if (jobText) {
+
     renderKeywords(cvText, jobText);
+
   } else {
+
     $("keywords").classList.add("hidden");
+
   }
 
   $("results").classList.remove("hidden");
@@ -882,22 +1188,31 @@ $("check").addEventListener("click", () => {
 
 });
 
-// ȘTERGERE
+/* ȘTERGERE */
 
 $("clear").addEventListener("click", () => {
+
   $("cv").value = "";
   $("job").value = "";
+
+  cvFileInput.value = "";
+
+  fileStatus.textContent =
+    "Nu ai selectat încă un document.";
+
   $("results").classList.add("hidden");
+
   $("cv").focus();
+
 });
 
-// PRINTARE RAPORT
+/* PRINTARE RAPORT */
 
 $("print").addEventListener("click", () => {
   window.print();
 });
 
-// ANUL CURENT
+/* ANUL CURENT */
 
 $("year").textContent = new Date().getFullYear();
 

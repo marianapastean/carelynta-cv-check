@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="CARELYNTA CV CHECK – verificare orientativă și gratuită a CV-ului.">
+<title>CARELYNTA CV CHECK</title>
+<style>
+:root{--teal:#218a79;--deep:#173f3a;--ink:#263532;--muted:#687874;--line:#dce7e3;--bg:#f4f8f6;--white:#fff;--soft:#eaf4f1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Arial,Helvetica,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:28px 18px 60px}
+header{text-align:center;padding:18px 0 26px}.brand{font-size:14px;letter-spacing:4px;color:var(--teal);font-weight:700}.brand span{color:var(--deep)}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:12px 0 10px;color:var(--deep)}.lead{max-width:610px;margin:0 auto;color:var(--muted)}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,4vw,30px);box-shadow:0 12px 35px rgba(23,63,58,.06);margin:18px 0}
+h2{font-size:21px;color:var(--deep);margin:0 0 8px}p.hint{margin:0 0 18px;color:var(--muted);font-size:14px}
+label{display:block;font-weight:700;margin:18px 0 7px}textarea{width:100%;min-height:220px;resize:vertical;border:1px solid #cbd9d4;border-radius:12px;padding:14px;font:15px/1.5 Arial;color:var(--ink);outline:none;background:#fff}
+textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(33,138,121,.12)}#job{min-height:125px}
+button{border:0;border-radius:999px;background:var(--teal);color:#fff;font-weight:700;font-size:15px;padding:14px 22px;cursor:pointer}button:hover{background:#176f62}button.secondary{background:var(--soft);color:var(--deep)}button:focus-visible{outline:3px solid #9acfc3;outline-offset:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.privacy{font-size:12px;color:var(--muted);margin-top:12px}
+.hidden{display:none}.scoreline{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.score{font-size:42px;font-weight:800;color:var(--teal)}.meter{height:10px;border-radius:20px;background:#e7eeeb;overflow:hidden;margin:12px 0 20px}.meter>span{display:block;height:100%;background:var(--teal);width:0;transition:width .3s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.item{border:1px solid var(--line);border-radius:13px;padding:14px;background:#fff}.item strong{display:block;color:var(--deep);margin-bottom:4px}.status{font-size:12px;font-weight:700;color:var(--teal)}.status.warn{color:#9b6b19}.item p{font-size:13px;color:var(--muted);margin:6px 0 0}
+.tag{display:inline-block;background:var(--soft);color:var(--deep);padding:5px 9px;border-radius:20px;font-size:12px;margin:4px 4px 0 0}
+.cta{background:var(--deep);color:#fff;border-radius:16px;padding:20px;margin-top:18px}.cta h2{color:#fff}.cta p{color:#d8e7e3}.cta a{color:#fff;font-weight:700}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
+@media(max-width:520px){.wrap{padding:16px 12px 40px}.panel{border-radius:16px}.actions button{width:100%}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+  <div class="brand">CARE<span>LYNTA</span></div>
+  <h1>CV CHECK</h1>
+  <p class="lead">Primul pas către un CV clar, coerent și relevant. Verifică gratuit câteva elemente esențiale și află ce poți îmbunătăți.</p>
+</header>
+<section class="panel">
+  <h2>Verifică CV-ul tău</h2>
+  <p class="hint">Copiază textul din CV în câmpul de mai jos. Nu este necesar să încarci documentul.</p>
+  <label for="cv">Textul CV-ului</label>
+  <textarea id="cv" placeholder="Copiază aici conținutul CV-ului: date de contact, profil profesional, experiență, educație, competențe etc."></textarea>
+  <label for="job">Anunțul de angajare (opțional)</label>
+  <textarea id="job" placeholder="Copiază aici descrierea jobului pentru care aplici. Vom identifica termeni relevanți care apar sau lipsesc din CV."></textarea>
+  <div class="actions"><button id="check">Verifică CV-ul gratuit</button><button class="secondary" id="clear" type="button">Șterge textul</button></div>
+  <p class="privacy">Confidențialitate: analiza se face local, în browserul tău. Textul introdus nu este trimis către CARELYNTA și nu este salvat de acest instrument.</p>
+</section>
+<section class="panel hidden" id="results" aria-live="polite">
+  <div class="scoreline"><div><h2>Raportul tău CARELYNTA</h2><p class="hint" style="margin:4px 0 0">Scor orientativ bazat pe criteriile de mai jos.</p></div><div class="score" id="score">0/100</div></div>
+  <div class="meter"><span id="bar"></span></div>
+  <div class="grid" id="checks"></div>
+  <div id="keywords" class="hidden" style="margin-top:22px"><h2>Cuvinte-cheie din anunț</h2><p class="hint">Comparație orientativă, nu evaluare completă ATS.</p><div id="keyword-list"></div></div>
+  <div class="cta"><h2>Vrei să mergi mai departe?</h2><p>O verificare automată poate identifica anumite aspecte de structură. O evaluare individuală poate analiza relevanța experienței, formularea realizărilor și adaptarea CV-ului la obiectivul tău profesional.</p><a href="mailto:contact@carelynta.ro?subject=Solicitare%20evaluare%20CV">Solicită informații despre evaluarea CV-ului →</a></div>
+  <p class="privacy">Acest raport este orientativ. Nu garantează trecerea de filtre ATS, obținerea unui interviu sau angajarea.</p>
+</section>
+<footer>© CARELYNTA · Instrument gratuit de orientare profesională</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const checks=[
+ {name:"Date de contact",test:t=>/(e-?mail|@)|(\+?\d[\d\s().-]{7,}\d)/i.test(t),good:"Am identificat indicii de e-mail sau număr de telefon.",bad:"Adaugă o adresă de e-mail profesională și un număr de telefon."},
+ {name:"Profil profesional",test:t=>/(profil profesional|despre mine|sumar profesional|obiectiv profesional)/i.test(t),good:"Există o secțiune de prezentare profesională.",bad:"Adaugă un rezumat de 3–5 rânduri despre experiență, competențe și direcția profesională."},
+ {name:"Experiență profesională",test:t=>/(experiență profesională|experienta profesionala|experiență|experienta|work experience)/i.test(t),good:"Am identificat o secțiune de experiență.",bad:"Include experiența relevantă, cu rol, angajator și perioadă."},
+ {name:"Educație",test:t=>/(educație|educatie|studii|formare|universitate|liceu)/i.test(t),good:"Am identificat informații despre educație sau formare.",bad:"Adaugă studiile și cursurile relevante, cu instituția și perioada."},
+ {name:"Competențe",test:t=>/(competențe|competente|abilități|abilitati|skills)/i.test(t),good:"Există o secțiune dedicată competențelor.",bad:"Include competențe tehnice și transferabile relevante pentru rolul vizat."},
+ {name:"Structură cu titluri clare",test:t=>/(experiență|experienta|educație|educatie|competențe|competente|studii)/i.test(t)&&/(profil|contact|limbi|certificări|certificari)/i.test(t),good:"Apar mai multe titluri uzuale de secțiuni.",bad:"Folosește titluri simple și standard: Profil, Experiență, Educație, Competențe."},
+ {name:"Realizări și rezultate",test:t=>/(realizări|realizari|rezultate|%|majorat|redus|crescut|implementat|optimizat|gestionat)/i.test(t),good:"Am identificat indicii de rezultate sau contribuții.",bad:"Înlocuiește o parte din responsabilități cu realizări concrete și rezultate, unde este posibil."},
+ {name:"Lungime și detaliu",test:t=>t.trim().split(/\s+/).filter(Boolean).length>=120,good:"Textul conține suficient conținut pentru o verificare inițială.",bad:"Textul pare foarte scurt. Verifică dacă ai inclus experiența, educația și competențele relevante."}
+];
+const stop=new Set("pentru care este sunt acest aceasta acestea unui unei din prin despre către catre dupa după între intre sau și si cu la de în in un o a al ai ale the and with from your you our role job team".split(" "));
+function words(s){return (s.toLocaleLowerCase("ro").match(/[a-zăâîșț0-9+#.-]{3,}/giu)||[]).filter(w=>!stop.has(w))}
+$("check").addEventListener("click",()=>{
+ const cv=$("cv").value.trim(),job=$("job").value.trim();
+ if(cv.length<40){alert("Te rog să introduci mai mult text din CV pentru o verificare utilă.");$("cv").focus();return}
+ const outcomes=checks.map(c=>({ ...c,ok:c.test(cv)}));
+ const score=Math.round(outcomes.filter(x=>x.ok).length/outcomes.length*100);
+ $("score").textContent=score+"/100";$("bar").style.width=score+"%";
+ $("checks").innerHTML=outcomes.map(x=>`<article class="item"><strong>${x.name}</strong><span class="status ${x.ok?"":"warn"}">${x.ok?"Identificat":"De îmbunătățit"}</span><p>${x.ok?x.good:x.bad}</p></article>`).join("");
+ if(job){
+   const cvWords=new Set(words(cv));const unique=[...new Set(words(job))].filter(w=>w.length>3).slice(0,35);
+   const matched=unique.filter(w=>cvWords.has(w)),missing=unique.filter(w=>!cvWords.has(w)).slice(0,15);
+   $("keywords").classList.remove("hidden");
+   $("keyword-list").innerHTML=`<p><b>${matched.length}</b> termeni identificați și <b>${missing.length}</b> termeni care merită verificați manual.</p>`+
+    (matched.length?`<div><b>Identificați:</b><br>${matched.map(w=>`<span class="tag">${w}</span>`).join("")}</div>`:"")+
+    (missing.length?`<div style="margin-top:10px"><b>Nu apar în textul CV-ului:</b><br>${missing.map(w=>`<span class="tag">${w}</span>`).join("")}</div>`:"");
+ }else{$("keywords").classList.add("hidden")}
+ $("results").classList.remove("hidden");$("results").scrollIntoView({behavior:"smooth",block:"start"});
+});
+$("clear").addEventListener("click",()=>{$("cv").value="";$("job").value="";$("results").classList.add("hidden");$("cv").focus()});
+</script>
+</body>
+</html>

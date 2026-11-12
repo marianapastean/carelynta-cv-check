@@ -15,6 +15,7 @@
   --dark: #0a3258;
   --deep: #061d35;
   --gold: #c6a66a;
+  --gold-light: #dfc18a;
   --text: #263442;
   --muted: #687887;
   --background: #f3f6f9;
@@ -457,29 +458,62 @@ button:focus-visible {
   margin: 4px;
 }
 
-/* CTA */
+/* CTA - BUTON AURIU */
 
 .cta {
   margin-top: 28px;
-  padding: 28px;
+  padding: 32px;
   border-radius: 18px;
   background: linear-gradient(135deg, var(--dark), var(--deep));
   color: white;
+  border: 1px solid rgba(198,166,106,.45);
+}
+
+.cta .kicker {
+  color: var(--gold-light);
 }
 
 .cta h2 {
   color: white;
+  font-size: 27px;
+  margin-bottom: 15px;
 }
 
 .cta p {
-  color: #d8e3ed;
+  color: #e0e8ef;
   font-size: 14px;
+  line-height: 1.75;
 }
 
-.cta a {
+.cta p strong {
   color: white;
+}
+
+.cta a.cta-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 16px 28px;
+  border-radius: 50px;
+  background: var(--gold);
+  color: var(--deep);
+  font-size: 15px;
   font-weight: bold;
-  text-underline-offset: 4px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,.16);
+  transition: .25s ease;
+}
+
+.cta a.cta-button:hover {
+  background: var(--gold-light);
+  color: var(--deep);
+  transform: translateY(-3px);
+  box-shadow: 0 9px 22px rgba(0,0,0,.22);
+}
+
+.cta a.cta-button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 4px;
 }
 
 /* HOW IT WORKS */
@@ -570,6 +604,16 @@ footer strong {
 
   .score {
     font-size: 36px;
+  }
+
+  .cta {
+    padding: 24px 20px;
+  }
+
+  .cta a.cta-button {
+    display: block;
+    width: 100%;
+    padding: 15px 18px;
   }
 }
 
@@ -760,26 +804,41 @@ footer strong {
 
   </div>
 
+  <!-- MESAJ FINAL CARELYNTA -->
+
   <div class="cta">
 
-    <p class="kicker" style.cta a {
-  color: white;
-  font-weight: bold;
-  text-underline-offset: 4px;
-}>Următorul pas</p>
+    <p class="kicker">Următorul pas în cariera ta</p>
 
-    <h2>Vrei o evaluare individuală a CV-ului?</h2>
+    <h2>Un CV bun îți poate deschide ușa către o nouă oportunitate.</h2>
 
     <p>
-      Verificarea automată poate identifica anumite aspecte
-      de structură. O evaluare individuală poate analiza
-      relevanța experienței, formularea realizărilor,
-      claritatea profilului și adaptarea CV-ului la
-      obiectivul tău profesional.
+      Ai făcut primul pas verificându-ți CV-ul.
+      Acum este momentul să te asiguri că experiența,
+      competențele și realizările tale sunt prezentate
+      într-un mod profesionist și convingător.
     </p>
 
-    <a href="mailto:mariana.pastean@gmail.com?subject=Solicitare%20evaluare%20CV">
-      Solicită informații despre evaluarea CV-ului →
+    <p>
+      Prin serviciile CARELYNTA de consiliere în carieră
+      și optimizare CV, te pot ajuta să îți clarifici
+      direcția profesională, să îți evidențiezi punctele
+      forte și să îți pregătești candidatura pentru
+      oportunitățile pe care ți le dorești.
+    </p>
+
+    <p>
+      <strong>
+        Experiența ta merită să fie pusă în valoare.
+        Hai să lucrăm împreună la următorul tău pas profesional!
+      </strong>
+    </p>
+
+    <a
+      class="cta-button"
+      href="mailto:mariana.pastean@gmail.com?subject=Solicitare%20consiliere%20si%20optimizare%20CV&body=Buna%2C%20Mariana!%0A%0ADoresc%20sa%20aflu%20mai%20multe%20despre%20serviciile%20CARELYNTA%20de%20consiliere%20in%20cariera%20si%20optimizare%20CV.%0A%0AMultumesc!"
+    >
+      Hai să discutăm despre CV-ul meu →
     </a>
 
   </div>

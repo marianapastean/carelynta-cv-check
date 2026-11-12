@@ -623,37 +623,25 @@ footer strong {
   }
 }
 
-/* STILURI PENTRU RAPORTUL PDF */
+/* OPTIMIZARE PDF */
 
-.pdf-export {
+.pdf-generating {
   background: #ffffff !important;
   color: #263442 !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 20px !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
 }
 
-.pdf-export .results-header {
-  margin-bottom: 15px;
-}
-
-.pdf-export .item {
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.pdf-export .cta {
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.pdf-export .actions {
+.pdf-generating .actions {
   display: none !important;
 }
+
+.pdf-generating .item,
+.pdf-generating .results-header,
+.pdf-generating .keyword-section,
+.pdf-generating .cta {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
 </style>
 </head>
 
@@ -858,7 +846,7 @@ footer strong {
     și nu garantează obținerea unui interviu sau angajarea.
   </p>
 
-  <div class="actions">
+  <div class="actions" data-html2canvas-ignore="true">
     <button id="print" class="secondary" type="button">
       Descarcă raportul PDF
     </button>
@@ -898,7 +886,7 @@ footer strong {
 
 </main>
 
-<!-- BIBLIOTECI PDF, DOCX SI GENERARE PDF -->
+<!-- BIBLIOTECI PDF SI DOCX -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
@@ -992,7 +980,7 @@ function extractWords(value) {
   ).filter(word => !stopWords.has(word));
 }
 
-/* PROTECȚIE TEXT HTML */
+/* PROTECTIE TEXT HTML */
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -1244,13 +1232,9 @@ $("check").addEventListener("click", () => {
   `).join("");
 
   if (jobText) {
-
     renderKeywords(cvText, jobText);
-
   } else {
-
     $("keywords").classList.add("hidden");
-
   }
 
   $("results").classList.remove("hidden");
@@ -1280,7 +1264,7 @@ $("clear").addEventListener("click", () => {
 
 });
 
-/* GENERARE SI SALVARE RAPORT PDF */
+/* GENERARE SI PARTAJARE PDF */
 
 $("print").addEventListener("click", async () => {
 
@@ -1304,35 +1288,25 @@ $("print").addEventListener("click", async () => {
   button.disabled = true;
   button.textContent = "Se generează PDF-ul...";
 
-  let temporaryExport = null;
+  let reportBlob = null;
+  let shareCompleted = false;
 
   try {
 
-    // Creează o copie temporară a raportului pentru export.
-    // Butonul de descărcare nu va apărea în PDF.
+    /*
+      IMPORTANT:
+      PDF-ul se generează direct din raportul vizibil.
+      Nu mai folosim clone ascunse sau elemente poziționate
+      în afara ecranului, deoarece acestea pot produce
+      pagini albe pe iPhone.
+    */
 
-    temporaryExport = report.cloneNode(true);
+    report.classList.add("pdf-generating");
 
-    temporaryExport.id = "pdf-export";
-    temporaryExport.classList.remove("hidden");
-    temporaryExport.classList.add("pdf-export");
-
-    temporaryExport.querySelectorAll(".actions").forEach(element => {
-      element.remove();
-    });
-
-    // Elimină eventualele elemente care nu trebuie incluse în document.
-    temporaryExport.querySelectorAll("[data-html2canvas-ignore]").forEach(element => {
-      element.remove();
-    });
-
-    temporaryExport.style.position = "fixed";
-    temporaryExport.style.left = "-10000px";
-    temporaryExport.style.top = "0";
-    temporaryExport.style.width = "900px";
-    temporaryExport.style.zIndex = "-1";
-
-    document.body.appendChild(temporaryExport);
+    // Așteaptă actualizarea stilurilor înainte de captură.
+    await new Promise(resolve => requestAnimationFrame(() => {
+      requestAnimationFrame(resolve);
+    }));
 
     const options = {
       margin: [10, 10, 10, 10],
@@ -1345,17 +1319,19 @@ $("print").addEventListener("click", async () => {
       },
 
       html2canvas: {
-        scale: 2,
+        scale: 1.5,
         useCORS: true,
         backgroundColor: "#ffffff",
-        scrollY: 0,
-        windowWidth: 1000
+        logging: false,
+        scrollY: -window.scrollY,
+        windowWidth: document.documentElement.clientWidth
       },
 
       jsPDF: {
         unit: "mm",
         format: "a4",
-        orientation: "portrait"
+        orientation: "portrait",
+        compress: true
       },
 
       pagebreak: {
@@ -1364,41 +1340,59 @@ $("print").addEventListener("click", async () => {
       }
     };
 
-    // Generează efectiv documentul PDF.
-    const pdfBlob = await html2pdf()
+    // Generează PDF-ul direct din secțiunea vizibilă.
+    reportBlob = await html2pdf()
       .set(options)
-      .from(temporaryExport)
+      .from(report)
       .outputPdf("blob");
 
-    if (!pdfBlob || pdfBlob.size === 0) {
-      throw new Error("Fișierul PDF generat este gol.");
+    if (!reportBlob || reportBlob.size < 1000) {
+      throw new Error("PDF-ul generat nu conține suficiente date.");
     }
 
     const pdfFile = new File(
-      [pdfBlob],
+      [reportBlob],
       "CARELYNTA-Raport-CV.pdf",
       { type: "application/pdf" }
     );
 
-    // Pe iPhone: deschide meniul nativ de partajare.
+    // Încearcă partajarea nativă pe iPhone.
     if (
       navigator.share &&
       navigator.canShare &&
       navigator.canShare({ files: [pdfFile] })
     ) {
 
-      await navigator.share({
-        files: [pdfFile],
-        title: "Raport CARELYNTA CV CHECK",
-        text: "Raportul verificării CV-ului tău."
-      });
+      try {
 
-    } else {
+        await navigator.share({
+          files: [pdfFile],
+          title: "Raport CARELYNTA CV CHECK",
+          text: "Raportul verificării CV-ului tău."
+        });
 
-      // Pentru browserele care nu acceptă partajarea fișierelor:
-      // descarcă PDF-ul direct.
+        shareCompleted = true;
 
-      const pdfUrl = URL.createObjectURL(pdfBlob);
+      } catch (shareError) {
+
+        // Dacă utilizatorul închide meniul, nu afișăm eroare.
+        if (shareError.name === "AbortError") {
+          shareCompleted = true;
+        } else {
+          console.warn(
+            "Partajarea nativă nu a funcționat:",
+            shareError
+          );
+        }
+
+      }
+
+    }
+
+    // Dacă partajarea nu este disponibilă, descarcă fișierul.
+    if (!shareCompleted) {
+
+      const pdfUrl = URL.createObjectURL(reportBlob);
 
       const downloadLink = document.createElement("a");
 
@@ -1419,17 +1413,13 @@ $("print").addEventListener("click", async () => {
 
     console.error("Eroare la generarea PDF:", error);
 
-    if (error.name !== "AbortError") {
-      alert(
-        "Nu am putut genera sau partaja raportul PDF. Verifică dacă ai conexiune la internet și încearcă din nou."
-      );
-    }
+    alert(
+      "Nu am putut genera raportul PDF. Te rog să verifici conexiunea la internet și să încerci din nou."
+    );
 
   } finally {
 
-    if (temporaryExport && temporaryExport.parentNode) {
-      temporaryExport.remove();
-    }
+    report.classList.remove("pdf-generating");
 
     button.disabled = false;
     button.textContent = originalText;

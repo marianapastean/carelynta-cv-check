@@ -890,7 +890,7 @@
           class="cta-button"
           href="mailto:mariana.pastean@gmail.com?subject=Solicitare%20consiliere%20si%20optimizare%20CV&body=Buna%2C%20Mariana!%0A%0ADoresc%20sa%20aflu%20mai%20multe%20despre%20serviciile%20CARELYNTA%20de%20consiliere%20in%20cariera%20si%20optimizare%20CV.%0A%0AMultumesc!"
         >
-          Hai să discutăm despre CV-ul meu →
+          Hai să discutăm despre CV-ul tău →
         </a>
       </div>
 

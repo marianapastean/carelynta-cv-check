@@ -343,6 +343,12 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+button:disabled {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+
 /* PRIVACY */
 
 .privacy {
@@ -516,24 +522,6 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
-/* INSTRUCTIUNI IPHONE */
-
-.print-help {
-  background: var(--soft);
-  border-left: 4px solid var(--gold);
-  border-radius: 10px;
-  padding: 14px 16px;
-  margin-top: 16px;
-  color: var(--dark);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.print-help strong {
-  display: block;
-  margin-bottom: 5px;
-}
-
 /* HOW IT WORKS */
 
 .how-grid {
@@ -635,106 +623,36 @@ footer strong {
   }
 }
 
-/* IMPRIMARE SI SALVARE PDF */
+/* STILURI PENTRU RAPORTUL PDF */
 
-@page {
-  size: A4;
-  margin: 14mm;
+.pdf-export {
+  background: #ffffff !important;
+  color: #263442 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-@media print {
+.pdf-export .results-header {
+  margin-bottom: 15px;
+}
 
-  html,
-  body {
-    background: white !important;
-    color: #263442 !important;
-    width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+.pdf-export .item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
 
-  .topbar,
-  header,
-  .input-panel,
-  .how-grid,
-  footer,
-  .cta a,
-  #print,
-  .print-help {
-    display: none !important;
-  }
+.pdf-export .cta {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
 
-  .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  #results {
-    display: block !important;
-    visibility: visible !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    background: white !important;
-  }
-
-  #results .results-header {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  #results .score {
-    color: #0a3258 !important;
-  }
-
-  #results .item {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    border: 1px solid #d8e2ec !important;
-  }
-
-  #results .cta {
-    background: #0a3258 !important;
-    color: white !important;
-    border: 1px solid #c6a66a !important;
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  #results .cta h2,
-  #results .cta p {
-    color: white !important;
-  }
-
-  #results .cta .kicker {
-    color: #dfc18a !important;
-  }
-
-  #results .privacy {
-    color: #687887 !important;
-  }
-
-  #results .actions {
-    display: none !important;
-  }
-
-  .meter {
-    border: 1px solid #d8e2ec;
-  }
-
-  .item,
-  .keyword-section,
-  .results-header {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
+.pdf-export .actions {
+  display: none !important;
 }
 </style>
 </head>
@@ -942,17 +860,8 @@ footer strong {
 
   <div class="actions">
     <button id="print" class="secondary" type="button">
-      Salvează raportul ca PDF
+      Descarcă raportul PDF
     </button>
-  </div>
-
-  <div class="print-help">
-    <strong>Cum salvezi raportul pe iPhone?</strong>
-    1. Apasă butonul „Salvează raportul ca PDF”.<br>
-    2. În Safari, se va deschide opțiunea de imprimare.<br>
-    3. În previzualizare, mărește pagina cu două degete (gestul de zoom).<br>
-    4. Apasă butonul de partajare și alege „Salvează în Fișiere”.<br>
-    5. Alege folderul dorit și apasă „Salvează”.
   </div>
 
 </section>
@@ -989,10 +898,11 @@ footer strong {
 
 </main>
 
-<!-- BIBLIOTECI PENTRU PDF ȘI DOCX -->
+<!-- BIBLIOTECI PDF, DOCX SI GENERARE PDF -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
 "use strict";
@@ -1146,7 +1056,7 @@ async function extractDOCX(file) {
   return result.value.trim();
 }
 
-/* ÎNCĂRCARE FIȘIER */
+/* INCARCARE FISIER */
 
 const cvFileInput = $("cvFile");
 const fileStatus = $("fileStatus");
@@ -1226,7 +1136,7 @@ cvFileInput.addEventListener("change", async function () {
 
 });
 
-/* COMPARAȚIE CU ANUNȚUL */
+/* COMPARATIE CU ANUNTUL */
 
 function renderKeywords(cvText, jobText) {
 
@@ -1352,7 +1262,7 @@ $("check").addEventListener("click", () => {
 
 });
 
-/* ȘTERGERE */
+/* STERGERE */
 
 $("clear").addEventListener("click", () => {
 
@@ -1370,18 +1280,161 @@ $("clear").addEventListener("click", () => {
 
 });
 
-/* SALVARE RAPORT CA PDF */
+/* GENERARE SI SALVARE RAPORT PDF */
 
-$("print").addEventListener("click", () => {
+$("print").addEventListener("click", async () => {
 
-  if (!window.print) {
+  const button = $("print");
+  const report = $("results");
+
+  if (!window.html2pdf) {
     alert(
-      "Funcția de imprimare nu este disponibilă în acest browser. Deschide site-ul direct în Safari."
+      "Biblioteca PDF nu s-a încărcat. Verifică conexiunea la internet și reîncarcă pagina."
     );
     return;
   }
 
-  window.print();
+  if (report.classList.contains("hidden")) {
+    alert("Te rog să verifici CV-ul înainte de a genera raportul.");
+    return;
+  }
+
+  const originalText = button.textContent;
+
+  button.disabled = true;
+  button.textContent = "Se generează PDF-ul...";
+
+  let temporaryExport = null;
+
+  try {
+
+    // Creează o copie temporară a raportului pentru export.
+    // Butonul de descărcare nu va apărea în PDF.
+
+    temporaryExport = report.cloneNode(true);
+
+    temporaryExport.id = "pdf-export";
+    temporaryExport.classList.remove("hidden");
+    temporaryExport.classList.add("pdf-export");
+
+    temporaryExport.querySelectorAll(".actions").forEach(element => {
+      element.remove();
+    });
+
+    // Elimină eventualele elemente care nu trebuie incluse în document.
+    temporaryExport.querySelectorAll("[data-html2canvas-ignore]").forEach(element => {
+      element.remove();
+    });
+
+    temporaryExport.style.position = "fixed";
+    temporaryExport.style.left = "-10000px";
+    temporaryExport.style.top = "0";
+    temporaryExport.style.width = "900px";
+    temporaryExport.style.zIndex = "-1";
+
+    document.body.appendChild(temporaryExport);
+
+    const options = {
+      margin: [10, 10, 10, 10],
+
+      filename: "CARELYNTA-Raport-CV.pdf",
+
+      image: {
+        type: "jpeg",
+        quality: 0.98
+      },
+
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        scrollY: 0,
+        windowWidth: 1000
+      },
+
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
+        orientation: "portrait"
+      },
+
+      pagebreak: {
+        mode: ["css", "legacy"],
+        avoid: [".item", ".results-header", ".cta"]
+      }
+    };
+
+    // Generează efectiv documentul PDF.
+    const pdfBlob = await html2pdf()
+      .set(options)
+      .from(temporaryExport)
+      .outputPdf("blob");
+
+    if (!pdfBlob || pdfBlob.size === 0) {
+      throw new Error("Fișierul PDF generat este gol.");
+    }
+
+    const pdfFile = new File(
+      [pdfBlob],
+      "CARELYNTA-Raport-CV.pdf",
+      { type: "application/pdf" }
+    );
+
+    // Pe iPhone: deschide meniul nativ de partajare.
+    if (
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({ files: [pdfFile] })
+    ) {
+
+      await navigator.share({
+        files: [pdfFile],
+        title: "Raport CARELYNTA CV CHECK",
+        text: "Raportul verificării CV-ului tău."
+      });
+
+    } else {
+
+      // Pentru browserele care nu acceptă partajarea fișierelor:
+      // descarcă PDF-ul direct.
+
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      const downloadLink = document.createElement("a");
+
+      downloadLink.href = pdfUrl;
+      downloadLink.download = "CARELYNTA-Raport-CV.pdf";
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      downloadLink.remove();
+
+      setTimeout(() => {
+        URL.revokeObjectURL(pdfUrl);
+      }, 60000);
+
+    }
+
+  } catch (error) {
+
+    console.error("Eroare la generarea PDF:", error);
+
+    if (error.name !== "AbortError") {
+      alert(
+        "Nu am putut genera sau partaja raportul PDF. Verifică dacă ai conexiune la internet și încearcă din nou."
+      );
+    }
+
+  } finally {
+
+    if (temporaryExport && temporaryExport.parentNode) {
+      temporaryExport.remove();
+    }
+
+    button.disabled = false;
+    button.textContent = originalText;
+
+  }
 
 });
 

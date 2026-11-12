@@ -458,7 +458,7 @@ button:focus-visible {
   margin: 4px;
 }
 
-/* CTA - BUTON AURIU */
+/* CTA */
 
 .cta {
   margin-top: 28px;
@@ -514,6 +514,24 @@ button:focus-visible {
 .cta a.cta-button:focus-visible {
   outline: 3px solid white;
   outline-offset: 4px;
+}
+
+/* INSTRUCTIUNI IPHONE */
+
+.print-help {
+  background: var(--soft);
+  border-left: 4px solid var(--gold);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 16px;
+  color: var(--dark);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.print-help strong {
+  display: block;
+  margin-bottom: 5px;
 }
 
 /* HOW IT WORKS */
@@ -617,27 +635,105 @@ footer strong {
   }
 }
 
+/* IMPRIMARE SI SALVARE PDF */
+
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
 @media print {
+
+  html,
+  body {
+    background: white !important;
+    color: #263442 !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .topbar,
+  header,
   .input-panel,
   .how-grid,
   footer,
   .cta a,
-  #print {
+  #print,
+  .print-help {
     display: none !important;
   }
 
-  body {
-    background: white;
-  }
-
-  .panel {
-    box-shadow: none;
-    border: none;
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   #results {
     display: block !important;
+    visibility: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+
+  #results .results-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #results .score {
+    color: #0a3258 !important;
+  }
+
+  #results .item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #d8e2ec !important;
+  }
+
+  #results .cta {
+    background: #0a3258 !important;
+    color: white !important;
+    border: 1px solid #c6a66a !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  #results .cta h2,
+  #results .cta p {
+    color: white !important;
+  }
+
+  #results .cta .kicker {
+    color: #dfc18a !important;
+  }
+
+  #results .privacy {
+    color: #687887 !important;
+  }
+
+  #results .actions {
+    display: none !important;
+  }
+
+  .meter {
+    border: 1px solid #d8e2ec;
+  }
+
+  .item,
+  .keyword-section,
+  .results-header {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
 </style>
@@ -697,8 +793,6 @@ footer strong {
     manual textul în câmpul de mai jos. Opțional, adaugă
     anunțul de angajare pentru o comparație orientativă.
   </p>
-
-  <!-- ÎNCĂRCARE DOCUMENT -->
 
   <div class="upload-section">
 
@@ -804,8 +898,6 @@ footer strong {
 
   </div>
 
-  <!-- MESAJ FINAL CARELYNTA -->
-
   <div class="cta">
 
     <p class="kicker">Următorul pas în cariera ta</p>
@@ -850,8 +942,17 @@ footer strong {
 
   <div class="actions">
     <button id="print" class="secondary" type="button">
-      Printează raportul
+      Salvează raportul ca PDF
     </button>
+  </div>
+
+  <div class="print-help">
+    <strong>Cum salvezi raportul pe iPhone?</strong>
+    1. Apasă butonul „Salvează raportul ca PDF”.<br>
+    2. În Safari, se va deschide opțiunea de imprimare.<br>
+    3. În previzualizare, mărește pagina cu două degete (gestul de zoom).<br>
+    4. Apasă butonul de partajare și alege „Salvează în Fișiere”.<br>
+    5. Alege folderul dorit și apasă „Salvează”.
   </div>
 
 </section>
@@ -1269,10 +1370,19 @@ $("clear").addEventListener("click", () => {
 
 });
 
-/* PRINTARE RAPORT */
+/* SALVARE RAPORT CA PDF */
 
 $("print").addEventListener("click", () => {
+
+  if (!window.print) {
+    alert(
+      "Funcția de imprimare nu este disponibilă în acest browser. Deschide site-ul direct în Safari."
+    );
+    return;
+  }
+
   window.print();
+
 });
 
 /* ANUL CURENT */

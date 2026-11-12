@@ -762,7 +762,11 @@ footer strong {
 
   <div class="cta">
 
-    <p class="kicker" style="color:#c6d8e8">Următorul pas</p>
+    <p class="kicker" style.cta a {
+  color: white;
+  font-weight: bold;
+  text-underline-offset: 4px;
+}>Următorul pas</p>
 
     <h2>Vrei o evaluare individuală a CV-ului?</h2>
 

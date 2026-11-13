@@ -147,23 +147,23 @@ img { max-width: 100%; }
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 12px;
-  width: 100%;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   color: var(--navy);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1.8px;
   line-height: 1.6;
+  text-align: center;
   text-transform: uppercase;
 }
 
-.eyebrow::before {
-  content: "";
-  display: block;
-  flex: 0 0 27px;
-  width: 27px;
-  height: 1px;
-  background: var(--gold);
+.eyebrow::before,
+.eyebrow::after {
+  display: none !important;
+  content: none !important;
 }
 
 .hero-title {
@@ -510,6 +510,32 @@ img { max-width: 100%; }
   color: var(--muted);
   font-size: 17px;
   line-height: 1.85;
+}
+
+/* ANIMATIE CARELYNTA */
+
+.brand-animated {
+  display: inline-block;
+  background: linear-gradient(
+    110deg,
+    var(--gold) 0%,
+    var(--gold-light) 25%,
+    var(--navy) 48%,
+    var(--gold-light) 68%,
+    var(--gold) 100%
+  );
+  background-size: 220% auto;
+  background-position: 0% center;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: carelyntaShimmer 4s ease-in-out infinite;
+}
+
+@keyframes carelyntaShimmer {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
 }
 
 /* WHAT WE CHECK */
@@ -954,8 +980,6 @@ textarea:focus {
   font-size: 13px;
 }
 
-/* CTA */
-
 .cta {
   position: relative;
   overflow: hidden;
@@ -1199,23 +1223,26 @@ footer {
     letter-spacing: 5px;
   }
 
-  /* Eticheta – păstrăm doar linia aurie din stânga */
+  /* ETICHETA CENTRATA, FARA LINII DECORATIVE */
+
   .eyebrow {
     display: flex;
     align-items: center;
-    width: 100%;
-    gap: 9px;
+    justify-content: center;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    gap: 0;
     font-size: 11px;
     letter-spacing: 1px;
     line-height: 1.6;
     text-align: center;
   }
 
-  .eyebrow::before {
-    display: block;
-    flex: 0 0 20px;
-    width: 20px;
-    min-width: 20px;
+  .eyebrow::before,
+  .eyebrow::after {
+    display: none !important;
+    content: none !important;
   }
 
   .hero-title {
@@ -1495,15 +1522,20 @@ footer {
   .hero-title { font-size: 41px; }
 
   .eyebrow {
-    gap: 7px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 0;
     font-size: 10px;
     letter-spacing: .7px;
+    text-align: center;
   }
 
-  .eyebrow::before {
-    flex-basis: 15px;
-    width: 15px;
-    min-width: 15px;
+  .eyebrow::before,
+  .eyebrow::after {
+    display: none !important;
+    content: none !important;
   }
 
   .floating-card { padding: 9px; }
@@ -1715,7 +1747,9 @@ footer {
   <div class="container">
 
     <div class="section-heading reveal">
-      <span class="section-label">CARELYNTA CV CHECK</span>
+      <span class="section-label">
+        <span class="brand-animated">CARELYNTA</span> CV CHECK
+      </span>
       <h2 class="section-title">Descoperă ce transmite CV-ul tău.</h2>
       <p class="section-description">
         Încarcă documentul sau introdu textul manual.
@@ -1950,7 +1984,7 @@ const $ = id => document.getElementById(id);
 
 $("year").textContent = new Date().getFullYear();
 
-/* ANIMAȚII LA DERULARE */
+/* ANIMATII LA DERULARE */
 
 const revealElements = document.querySelectorAll(".reveal");
 
@@ -2098,7 +2132,7 @@ async function extractDOCX(file) {
   return result.value.trim();
 }
 
-/* ÎNCĂRCARE DOCUMENT */
+/* INCARCARE DOCUMENT */
 
 const cvFileInput = $("cvFile");
 const fileStatus = $("fileStatus");
@@ -2161,7 +2195,7 @@ cvFileInput.addEventListener("change", async function () {
   }
 });
 
-/* COMPARAȚIE CU ANUNȚUL */
+/* COMPARATIE CU ANUNTUL */
 
 function renderKeywords(cvText, jobText) {
   const cvWords = new Set(extractWords(cvText));
@@ -2265,7 +2299,7 @@ $("check").addEventListener("click", () => {
   });
 });
 
-/* ȘTERGERE DATE */
+/* STERGERE DATE */
 
 $("clear").addEventListener("click", () => {
   $("cv").value = "";
@@ -2279,7 +2313,7 @@ $("clear").addEventListener("click", () => {
   $("cv").focus();
 });
 
-/* DESCHIDERE PDF COMPATIBILĂ CU IPHONE */
+/* DESCHIDERE PDF COMPATIBILA CU IPHONE */
 
 function openPDF(blob) {
   const pdfUrl = URL.createObjectURL(blob);

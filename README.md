@@ -166,15 +166,6 @@ img { max-width: 100%; }
   background: var(--gold);
 }
 
-.eyebrow::after {
-  content: "";
-  display: block;
-  flex: 1 1 auto;
-  min-width: 25px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--gold), rgba(198,166,106,.12));
-}
-
 .hero-title {
   max-width: 650px;
   margin: 20px 0;
@@ -951,6 +942,8 @@ textarea:focus {
   line-height: 1.7;
 }
 
+/* CTA */
+
 .tag {
   display: inline-block;
   margin: 4px 4px 4px 0;
@@ -1206,7 +1199,7 @@ footer {
     letter-spacing: 5px;
   }
 
-  /* Eticheta și liniile decorative */
+  /* Eticheta – păstrăm doar linia aurie din stânga */
   .eyebrow {
     display: flex;
     align-items: center;
@@ -1223,14 +1216,6 @@ footer {
     flex: 0 0 20px;
     width: 20px;
     min-width: 20px;
-  }
-
-  .eyebrow::after {
-    display: block;
-    flex: 1 1 auto;
-    min-width: 20px;
-    height: 1px;
-    opacity: 1;
   }
 
   .hero-title {
@@ -1520,8 +1505,6 @@ footer {
     width: 15px;
     min-width: 15px;
   }
-
-  .eyebrow::after { min-width: 15px; }
 
   .floating-card { padding: 9px; }
 }

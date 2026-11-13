@@ -54,7 +54,6 @@ body {
 button, textarea, input { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; }
-img { max-width: 100%; }
 
 .container {
   width: min(1160px, calc(100% - 48px));
@@ -512,7 +511,7 @@ img { max-width: 100%; }
   line-height: 1.85;
 }
 
-/* ANIMATIE CARELYNTA */
+/* ANIMATIE TEXT CARELYNTA DIN ETICHETA */
 
 .brand-animated {
   display: inline-block;
@@ -583,10 +582,11 @@ img { max-width: 100%; }
   line-height: 1.7;
 }
 
-/* FORM */
+/* SECTIUNEA CV CHECK */
 
 .tool-section {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   padding: 85px 0 95px;
   background:
@@ -594,21 +594,81 @@ img { max-width: 100%; }
     #f0f3f6;
 }
 
+/*
+   TEXT CARELYNTA DIN FUNDAL:
+   Centrat pe orizontala si animat.
+*/
+
 .tool-section::before {
   content: "CARELYNTA";
   position: absolute;
-  top: 45px;
-  right: -55px;
-  color: rgba(10,50,88,.025);
+  z-index: -1;
+  top: 115px;
+  left: 50%;
+  right: auto;
+  width: max-content;
+  max-width: 100%;
+  transform: translateX(-50%);
+  color: transparent;
   font-family: var(--serif);
   font-size: clamp(90px, 15vw, 190px);
   font-weight: 700;
+  letter-spacing: 5px;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
   pointer-events: none;
+  user-select: none;
+
+  background: linear-gradient(
+    110deg,
+    rgba(10,50,88,.045) 0%,
+    rgba(198,166,106,.24) 25%,
+    rgba(10,50,88,.13) 50%,
+    rgba(223,193,138,.3) 70%,
+    rgba(10,50,88,.045) 100%
+  );
+
+  background-size: 250% auto;
+  background-position: 0% center;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  animation: backgroundCarelynta 9s ease-in-out infinite;
+}
+
+@keyframes backgroundCarelynta {
+  0% {
+    background-position: 0% center;
+    opacity: .8;
+  }
+
+  50% {
+    background-position: 100% center;
+    opacity: 1;
+  }
+
+  100% {
+    background-position: 0% center;
+    opacity: .8;
+  }
+}
+
+/* CONTINUTUL SECTIUNII DEASUPRA TEXTULUI DIN FUNDAL */
+
+.tool-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.tool-section .section-heading {
+  position: relative;
+  z-index: 2;
 }
 
 .tool-card {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 900px;
   margin: 0 auto;
   padding: clamp(24px,5vw,52px);
@@ -948,6 +1008,8 @@ textarea:focus {
   line-height: 1.7;
 }
 
+/* KEYWORDS */
+
 .keyword-section {
   margin-top: 28px;
   padding-top: 25px;
@@ -1179,7 +1241,7 @@ footer {
   page-break-inside: avoid;
 }
 
-/* RESPONSIVE TABLET */
+/* TABLETA */
 
 @media (max-width: 900px) {
   .header-inner { gap: 15px; }
@@ -1189,7 +1251,7 @@ footer {
   .criteria-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 
-/* RESPONSIVE MOBIL */
+/* MOBIL */
 
 @media (max-width: 650px) {
   .container { width: calc(100% - 30px); }
@@ -1222,8 +1284,6 @@ footer {
     font-size: 14px;
     letter-spacing: 5px;
   }
-
-  /* ETICHETA CENTRATA, FARA LINII DECORATIVE */
 
   .eyebrow {
     display: flex;
@@ -1340,6 +1400,26 @@ footer {
   }
 
   .tool-section { padding: 58px 0; }
+
+  /*
+    CARELYNTA DIN FUNDAL:
+    Centrare adaptata pentru ecrane mobile.
+  */
+
+  .tool-section::before {
+    top: 105px;
+    left: 50%;
+    right: auto;
+    width: max-content;
+    max-width: 100%;
+    transform: translateX(-50%);
+    font-size: clamp(48px, 14vw, 88px);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    text-align: center;
+    background-size: 250% auto;
+    animation: backgroundCarelynta 9s ease-in-out infinite;
+  }
 
   .tool-card { padding: 23px 17px; }
 
@@ -1539,6 +1619,12 @@ footer {
   }
 
   .floating-card { padding: 9px; }
+
+  .tool-section::before {
+    top: 100px;
+    font-size: 46px;
+    letter-spacing: 1px;
+  }
 }
 
 /* ACCESIBILITATE */
